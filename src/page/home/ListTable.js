@@ -1,8 +1,9 @@
-import React from // useEffect,
-// useState
-"react";
+import React, {useEffect} from "react";
 
 const ListTable = ({ list, users }) => {
+useEffect(()=>{
+  console.log(list)
+},[list])
   return (
     <>
       <table>
@@ -12,16 +13,16 @@ const ListTable = ({ list, users }) => {
             <td>负责人</td>
           </tr>
         </thead>
-        {list.map((l) => {
+        <tbody>
+        {list?list.map((l) => {
           return (
-            <tbody>
               <tr key={l.id}>
                 <td>{l.name}</td>
-                <td>{users.find((user) => user.id === l.personId)?.name}</td>
+                <td>{users.find(user=>user.id===l.personId)?.name}</td>
               </tr>
-            </tbody>
           );
-        })}
+        }):null}
+        </tbody>
       </table>
     </>
   );

@@ -1,20 +1,21 @@
 import React from "react"
 
 const SearchPanel = ({users, param, setParam})=>{
-	// const [users, setUsers] = useState([]);
 	return (
 		<>
 			<form>
 				<div>
-					<input type="text" value={param.value} onChange={evt => setParam({
+					<input type="text" value={param.name} onChange={evt => setParam({
 						...param,
 						name:evt.target.value
 					})} />
 
-					<select value={param.value} onChange={evt => setParam({
-						...param,
-						personId: evt.target.value
-					})} >
+					<select onChange={evt => {
+						setParam({
+							...param,
+							personId: evt.target.value
+						})
+					}} >
 
 					<option value={''}>负责人</option>
 					{

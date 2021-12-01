@@ -13,12 +13,6 @@ const Home = ()=>{
 	const [param, setParam] = useState({name:'', personId: ''})
 	const [users, setUsers] = useState([])
 
-	useEffect(()=>{
-		fetch(`${apiUri}/projects`).then( async res => {
-			setList(await res.json())
-		})
-	},[])
-
 	useEffect( ()=>{
 		fetch(`${apiUri}/users`).then( async response => {
 			if(response.ok){
@@ -26,6 +20,12 @@ const Home = ()=>{
 			}
 		})
 	},[])
+
+	useEffect(()=>{
+		fetch(`${apiUri}/projects?personId=${param.personId}`).then( async res => {
+			setList(await res.json())
+		})
+	},[param.personId])
 
 	return (
 		<>
