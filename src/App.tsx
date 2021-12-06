@@ -1,11 +1,12 @@
 import React from 'react';
 import Home from "./page/home/Home"
+import {TsReactTest} from "./page/tsReactTest/TsReactTest";
 
 function App() {
   return (
     <div className="App">
-      <div>APP</div>
-      <Home />
+      {/*<Home />*/}
+      <TsReactTest/>
     </div>
   );
 }

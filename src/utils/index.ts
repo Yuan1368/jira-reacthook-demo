@@ -32,3 +32,22 @@ export const useDebounce = <T>(value:T, delay?:number) =>{
 
 	return debouncedValue;
 }
+
+export const useArray = (persons:{name:string;age:number}[])=>{
+
+	const [value, setValue] = useState(persons);
+
+	const clear = () => {
+		setValue([])
+	};
+
+	const removeIndex = (index:number) => {
+		setValue(value.slice(index+1, -1));
+	};
+
+	const add = (person:{ name:string;age:number }) => {
+		setValue(value.concat(person));
+	}
+
+	return {value, clear, removeIndex, add}
+}
