@@ -1,11 +1,15 @@
 import React from 'react';
-import Home from "./page/home/Home"
+// import Home from "./page/home/Home"
+// import {TsReactTest} from "./page/tsReactTest/TsReactTest";
+import {LoginPage} from "./page/login";
 
 function App() {
   return (
     <div className="App">
-      <div>APP</div>
-      <Home />
+      {/*<Home />*/}
+      <LoginPage/>
+
+      {/*<TsReactTest/>*/}
     </div>
   );
 }
