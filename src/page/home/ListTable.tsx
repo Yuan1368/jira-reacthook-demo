@@ -1,9 +1,25 @@
 import React, {useEffect} from "react";
+import { User } from "./SearchPanel";
 
-const ListTable = ({ list, users }) => {
-useEffect(()=>{
+interface List {
+  id:number;
+  name:string;
+  personId:number;
+  organization: string;
+  created:number
+}
+
+interface ListTableProp {
+  list: List[];
+  users: User[]
+}
+
+const ListTable = ({ list, users }:ListTableProp) => {
+
+  useEffect(()=>{
   console.log(list)
 },[list])
+
   return (
     <>
       <table>
