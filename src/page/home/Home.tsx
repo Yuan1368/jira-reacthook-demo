@@ -1,4 +1,4 @@
-import React,{
+import React, {
 	useState,
 	useEffect
 } from 'react'
@@ -6,18 +6,18 @@ import React,{
 import SearchPanel from "./SearchPanel"
 import ListTable from "./ListTable"
 import {apiUri} from "utils/api"
-import * as qs from	"qs";
+import * as qs from "qs";
 import {cleanObject, useDebounce, useMount} from "../../utils";
 
-const Home = ()=>{
+const Home = () => {
 
 	const [list, setList] = useState([])
-	const [param, setParam] = useState({name:'', personId: ''})
+	const [param, setParam] = useState({name: '', personId: ''})
 	const [users, setUsers] = useState([])
 
-	useMount( ()=>{
-		fetch(`${apiUri}/users`).then( async response => {
-			if(response.ok){
+	useMount(() => {
+		fetch(`${apiUri}/users`).then(async response => {
+			if (response.ok) {
 				setUsers(await response.json())
 			}
 		})
@@ -25,11 +25,11 @@ const Home = ()=>{
 
 	const debouncedParam = useDebounce(param, 3000);
 
-	useEffect(()=>{
-		fetch(`${apiUri}/projects?${qs.stringify(cleanObject(debouncedParam))}`).then( async res => {
+	useEffect(() => {
+		fetch(`${apiUri}/projects?${qs.stringify(cleanObject(debouncedParam))}`).then(async res => {
 			setList(await res.json())
 		})
-	},[debouncedParam])
+	}, [debouncedParam])
 
 	return (
 		<>

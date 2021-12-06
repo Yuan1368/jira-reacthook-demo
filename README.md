@@ -1,46 +1,37 @@
-# Getting Started with Create React App
+## TypeScript基本知识梳理
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### TypeScript 的类型
 
-## Available Scripts
+9种类型：number / string / boolean / array /函数 / any / void / object / typle / enum / null 和 undefined /unknown / never
 
-In the project directory, you can run:
+#### tuple
 
-### `yarn start`
+数量固定，类型各异的数组。
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### unknown
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+unknown 表示这个值可以是任何值， 使用 any 时 应当用 unknown 代替。unknown 不能被赋值。
 
-### `yarn test`
+#### never
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+使用比较少，
 
-### `yarn build`
+```js
+const func = () => {
+    throw new Error()
+}
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### interface
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+interface 并不是一种类型，而是使用上述类型创建一个自定义类型。
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 声明类型的时机
 
-### `yarn eject`
+声明变量时可以声明类型
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+TS 会自动推断类型，不需要声明。
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### .d.ts
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+JS 文件 + d.ts 文件 === ts 文件。
