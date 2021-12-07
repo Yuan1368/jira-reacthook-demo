@@ -10,6 +10,8 @@ module.exports = (req, res, next) => {
 		else {
 			return res.status(400).json({message: "该用户不存在"});
 		}
+	}else{
+		return res.status(400).json({message:"请求失败"});
 	}
 
 	next();
