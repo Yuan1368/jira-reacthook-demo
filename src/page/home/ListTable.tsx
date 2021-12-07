@@ -1,12 +1,13 @@
 import React, {useEffect} from "react";
 import { User } from "./SearchPanel";
 
-interface List {
+export interface List {
   id:number;
   name:string;
   personId:number;
   organization: string;
-  created:number
+  created:number;
+  token: string
 }
 
 interface ListTableProp {

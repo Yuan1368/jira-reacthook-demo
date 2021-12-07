@@ -18,7 +18,6 @@ const Home = () => {
 	useMount(() => {
 		fetch(`${apiUri}/users`).then(async response => {
 			if (response.ok) {
-				setUsers(await response.json())
 			}
 		})
 	})
