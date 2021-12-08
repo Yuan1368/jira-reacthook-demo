@@ -18,7 +18,7 @@ interface ListTableProp {
 const ListTable = ({ list, users }:ListTableProp) => {
 
   useEffect(()=>{
-  console.log(list)
+  console.log("list", list)
 },[list])
 
   return (
@@ -31,7 +31,7 @@ const ListTable = ({ list, users }:ListTableProp) => {
           </tr>
         </thead>
         <tbody>
-        {list?list.map((l) => {
+        {list.length?list.map((l) => {
           return (
               <tr key={l.id}>
                 <td>{l.name}</td>
