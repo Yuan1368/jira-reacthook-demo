@@ -5,9 +5,8 @@ import React, {
 
 import SearchPanel from "./SearchPanel"
 import ListTable from "./ListTable"
-import {apiUri} from "utils/api"
-import * as qs from "qs";
 import {cleanObject, useDebounce, useMount} from "../../utils";
+import {useHttp} from "../../utils/http";
 
 const Home = () => {
 
@@ -15,20 +14,17 @@ const Home = () => {
 	const [param, setParam] = useState({name: '', personId: ''})
 	const [users, setUsers] = useState([])
 
-	useMount(() => {
-		fetch(`${apiUri}/users`).then(async response => {
-			if (response.ok) {
-			}
-		})
-	})
+	const client = useHttp();
 
-	const debouncedParam = useDebounce(param, 3000);
+	const debouncedParam = useDebounce(param, 1000);
 
 	useEffect(() => {
-		fetch(`${apiUri}/projects?${qs.stringify(cleanObject(debouncedParam))}`).then(async res => {
-			setList(await res.json())
-		})
+		client(`projects`, {data: cleanObject(debouncedParam)}).then(setList)
 	}, [debouncedParam])
+
+	useMount(() => {
+		client(`users`,).then(setUsers)
+	})
 
 	return (
 		<>

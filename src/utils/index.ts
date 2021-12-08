@@ -3,7 +3,6 @@ import {useEffect, useState} from "react";
 export const isFalsy = (value:any) => value===0?true:!!value;
 
 export const cleanObject = (obj:any):object=>{
-	console.log(obj)
 	const result = {...obj}
 	Object.keys(result).forEach(key=>{
 		if(!isFalsy(result[key]))
