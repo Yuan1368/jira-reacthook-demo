@@ -1,38 +1,35 @@
-import React, {FormEvent} from "react";
-import {useAuth} from "../context/auth-context";
 
-export const RegisterPage = () => {
+import React from "react";
+import {useAuth} from "../context/auth-context";
+import {Button, Form, Input} from "antd";
+
+export const RegisterPage = ()=>{
 
 	const {user, register} = useAuth();
 
-	const handleSubmit = (event: FormEvent<HTMLFormElement>)=>{
-		event.preventDefault();
-		// console.log(event.currentTarget.elements)
-		const username = (event.currentTarget.elements[0] as HTMLInputElement).value;
-		const password = (event.currentTarget.elements[1] as HTMLInputElement).value;
-		register({username, password}).then();
+	const handleSubmit = (values:{username:string, password:string})=>{
+		register(values).then();
 	}
 
-	return (
-		<form onSubmit={handleSubmit}>
-			{user?<div>
-				<span>用户名:{user.name}</span>
-				<span>账号：{user.token}</span>
-			</div>:null}
-			<div>
-				<label htmlFor="username">
-					用户名
-				</label>
-				<input type="text" id={"username"}/>
-			</div>
-			<div>
-				<label htmlFor="password">
-					密码
-				</label>
-				<input type="password" id={"password"}/>
-			</div>
+	/*	const handleSubmit = (event: FormEvent<HTMLFormElement>)=>{
+			event.preventDefault();
+			// console.log(event.currentTarget.elements)
+			const username = (event.currentTarget.elements[0] as HTMLInputElement).value;
+			const password = (event.currentTarget.elements[1] as HTMLInputElement).value;
+			login({username, password}).then();
+		}*/
 
-			<button type={"submit"}>注册</button>
-		</form>
+	return (
+		<Form onFinish={handleSubmit}>
+			<Form.Item rules={[{required:true, message:"请输入姓名"}]} name={"username"}>
+				<Input placeholder={"用户名"} id={"username"} type={"text"} />
+			</Form.Item>
+			<Form.Item rules={[{required:true, message:"密码"}]} name={"password"}>
+				<Input placeholder={"密码"} id={"password"} type={"password"} />
+			</Form.Item>
+			<Form.Item>
+				<Button type={"primary"} htmlType={"submit"}>注册</Button>
+			</Form.Item>
+		</Form>
 	)
 }
