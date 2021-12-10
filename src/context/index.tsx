@@ -1,9 +1,6 @@
-import {AuthProvide} from "./auth-context";
-import {ReactNode} from "react";
+import { AuthProvide } from "./auth-context";
+import { ReactNode } from "react";
 
-export const AppProviders = ({children}: { children: ReactNode }) => {
-	return <AuthProvide>
-		{children}
-	</AuthProvide>
-
-}
+export const AppProviders = ({ children }: { children: ReactNode }) => {
+  return <AuthProvide>{children}</AuthProvide>;
+};
