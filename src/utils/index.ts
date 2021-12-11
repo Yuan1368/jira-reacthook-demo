@@ -1,54 +1,50 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
-export const isFalsy = (value:any) => value===0?true:!!value;
+export const isFalsy = (value: any) => (value === 0 ? true : !!value);
 
-export const cleanObject = (obj:any):object=>{
-	const result = {...obj}
-	Object.keys(result).forEach(key=>{
-		if(!isFalsy(result[key]))
-			delete result[key]
-	})
+export const cleanObject = (obj: any): object => {
+  const result = { ...obj };
+  Object.keys(result).forEach((key) => {
+    if (!isFalsy(result[key])) delete result[key];
+  });
 
-	return result
-}
+  return result;
+};
 
-export const useMount = (callback:()=>void):void=>{
-	useEffect(()=>{
-		callback()
-	},[callback])
-}
+export const useMount = (callback: () => void): void => {
+  useEffect(() => {
+    callback();
+  }, [callback]);
+};
 
-export const useDebounce = <T>(value:T, delay?:number) =>{
+export const useDebounce = <T>(value: T, delay?: number) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
 
-	const [debouncedValue, setDebouncedValue] = useState(value);
+  useEffect(() => {
+    const timeout = setTimeout(() => setDebouncedValue(value), delay);
 
-	useEffect(()=>{
-		const timeout = setTimeout(()=>setDebouncedValue(value), delay);
+    return () => clearTimeout(timeout);
+  }, [value, delay]);
 
-		return ()=>clearTimeout(timeout);
+  return debouncedValue;
+};
 
-	},[value,delay])
+export const useArray = <T>(persons: T[]) => {
+  const [value, setValue] = useState(persons);
 
-	return debouncedValue;
-}
+  const clear = () => {
+    setValue([]);
+  };
 
-export const useArray = <T>(persons:T[])=>{
+  const removeIndex = (index: number) => {
+    let _copy = [...value];
+    _copy.splice(index, 1);
+    setValue(_copy);
+  };
 
-	const [value, setValue] = useState(persons);
+  const add = (person: T) => {
+    setValue(value.concat(person));
+  };
 
-	const clear = () => {
-		setValue([])
-	};
-
-	const removeIndex = (index:number) => {
-		let _copy = [...value];
-		_copy.splice(index, 1);
-		setValue(_copy);
-	};
-
-	const add = (person:T) => {
-		setValue(value.concat(person));
-	}
-
-	return {value, setValue, clear, removeIndex, add}
-}
+  return { value, setValue, clear, removeIndex, add };
+};
