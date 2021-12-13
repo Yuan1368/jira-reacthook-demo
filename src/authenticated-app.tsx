@@ -1,6 +1,7 @@
 import Home from "./page/home/Home";
 import { useAuth } from "./context/auth-context";
 import styled from "@emotion/styled";
+import { Row } from "./components/lib";
 
 export const AuthenticatedApp = () => {
   const { layout } = useAuth();
@@ -9,7 +10,7 @@ export const AuthenticatedApp = () => {
     <>
       <Container>
         <Header>
-          <HeaderLeft>
+          <HeaderLeft gap={true} between={true}>
             <h3>Logo</h3>
             <h3>项目</h3>
             <h3>用户</h3>
@@ -38,11 +39,8 @@ const Container = styled.div`
   height: 100vh;
 `;
 
-const Header = styled.header`
+const Header = styled(Row)`
   grid-area: header;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
   justify-content: space-between;
 `;
 
@@ -50,9 +48,6 @@ const Main = styled.main`
   grid-area: main;
 `;
 
-const HeaderLeft = styled.div`
-  display: flex;
-  align-items: center;
-`;
+const HeaderLeft = styled(Row)``;
 
 const HeaderRight = styled.div``;
