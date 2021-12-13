@@ -12,7 +12,7 @@ export const UnauthenticatedApp = () => {
 
   return (
     <Container>
-      <Headers></Headers>
+      <Headers />
       <Background />
       <Title>{isRegister ? "请注册" : "请登录"}</Title>
       <ShadowCard>
