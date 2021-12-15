@@ -3,11 +3,28 @@ import { useAuth } from "../context/auth-context";
 import { Form, Input } from "antd";
 import { LongButton } from "./index";
 
-export const RegisterPage = () => {
+export const RegisterPage = ({
+  onError,
+}: {
+  onError: (error: Error) => void;
+}) => {
   const { register } = useAuth();
 
-  const handleSubmit = (values: { username: string; password: string }) => {
-    register(values).then();
+  const handleSubmit = ({
+    cpassword,
+    ...values
+  }: {
+    username: string;
+    password: string;
+    cpassword: string;
+  }) => {
+    if (cpassword !== values.password) {
+      onError(new Error("请确认两次输入的密码保持一致"));
+      return;
+    }
+    register(values).catch((e) => {
+      onError(e);
+    });
   };
 
   /*	const handleSubmit = (event: FormEvent<HTMLFormElement>)=>{
@@ -31,6 +48,12 @@ export const RegisterPage = () => {
         name={"password"}
       >
         <Input placeholder={"密码"} id={"password"} type={"password"} />
+      </Form.Item>
+      <Form.Item
+        rules={[{ required: true, message: "确认密码" }]}
+        name={"cpassword"}
+      >
+        <Input placeholder={"确认密码"} id={"cpassword"} type={"password"} />
       </Form.Item>
       <Form.Item>
         <LongButton type={"primary"} htmlType={"submit"}>
