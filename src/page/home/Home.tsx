@@ -1,34 +1,32 @@
-import React, { useState, useEffect } from "react";
-
+import React, { useState } from "react";
 import SearchPanel from "./SearchPanel";
 import ListTable from "./ListTable";
-import { cleanObject, useDebounce, useMount } from "../../utils";
-import { useHttp } from "../../utils/http";
+import { useDebounce } from "../../utils";
 import styled from "@emotion/styled";
+import { Typography } from "antd";
+import { useList } from "../../utils/project";
+import { useUsers } from "../../utils/user";
 
 const Home = () => {
-  const [list, setList] = useState([]);
   const [param, setParam] = useState({ name: "", personId: "" });
-  const [users, setUsers] = useState([]);
-
-  const client = useHttp();
 
   const debouncedParam = useDebounce(param, 1000);
 
-  useEffect(() => {
-    client(`projects`, { data: cleanObject(debouncedParam) }).then(setList);
-    // eslint-disable-next-line
-  }, [debouncedParam]);
-
-  useMount(() => {
-    client(`users`).then(setUsers);
-  });
+  const { isLoading, error, data: list } = useList(debouncedParam);
+  const { data: users } = useUsers();
 
   return (
     <Container>
       <h1>项目列表</h1>
-      <SearchPanel setParam={setParam} users={users} param={param} />
-      <ListTable list={list} users={users} />
+      <SearchPanel setParam={setParam} users={users || []} param={param} />
+      {error ? (
+        <Typography.Text type={"danger"}>{error.message}</Typography.Text>
+      ) : null}
+      <ListTable
+        dataSource={list || []}
+        users={users || []}
+        loading={isLoading}
+      />
     </Container>
   );
 };

@@ -1,27 +1,22 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { User } from "./SearchPanel";
-import { Table } from "antd";
+import { Table, TableProps } from "antd";
 import dayjs from "dayjs";
 
 export interface List {
-  id: number;
+  id: string;
   name: string;
-  personId: number;
+  personId: string;
   organization: string;
   created: number;
   token: string;
 }
 
-interface ListTableProp {
-  list: List[];
+interface ListTableProp extends TableProps<List> {
   users: User[];
 }
 
-const ListTable = ({ list, users }: ListTableProp) => {
-  useEffect(() => {
-    console.log("list", list);
-  }, [list]);
-
+const ListTable = ({ users, ...props }: ListTableProp) => {
   return (
     <Table
       pagination={false}
@@ -58,7 +53,7 @@ const ListTable = ({ list, users }: ListTableProp) => {
           },
         },
       ]}
-      dataSource={list}
+      {...props}
     />
   );
 };

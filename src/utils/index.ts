@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 export const isVoid = (value: unknown) =>
   value === undefined || value === null || value === "";
 
-export const cleanObject = (obj: { [key: string]: unknown }): object => {
+export const cleanObject = (obj: { [key: string]: unknown }) => {
   const result = { ...obj };
   Object.keys(result).forEach((key) => {
     if (isVoid(result[key])) delete result[key];
