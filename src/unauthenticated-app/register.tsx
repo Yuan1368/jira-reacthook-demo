@@ -2,6 +2,7 @@ import React from "react";
 import { useAuth } from "../context/auth-context";
 import { Form, Input } from "antd";
 import { LongButton } from "./index";
+import { useAsync } from "../utils/use-async";
 
 export const RegisterPage = ({
   onError,
@@ -9,8 +10,9 @@ export const RegisterPage = ({
   onError: (error: Error) => void;
 }) => {
   const { register } = useAuth();
+  const { isLoading, run } = useAsync(undefined, { throwOnError: true });
 
-  const handleSubmit = ({
+  const handleSubmit = async ({
     cpassword,
     ...values
   }: {
@@ -22,9 +24,11 @@ export const RegisterPage = ({
       onError(new Error("请确认两次输入的密码保持一致"));
       return;
     }
-    register(values).catch((e) => {
+    try {
+      await run(register(values));
+    } catch (e) {
       onError(e);
-    });
+    }
   };
 
   /*	const handleSubmit = (event: FormEvent<HTMLFormElement>)=>{
@@ -56,7 +60,7 @@ export const RegisterPage = ({
         <Input placeholder={"确认密码"} id={"cpassword"} type={"password"} />
       </Form.Item>
       <Form.Item>
-        <LongButton type={"primary"} htmlType={"submit"}>
+        <LongButton type={"primary"} htmlType={"submit"} loading={isLoading}>
           注册
         </LongButton>
       </Form.Item>

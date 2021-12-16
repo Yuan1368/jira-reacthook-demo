@@ -12,7 +12,16 @@ const defaultInitialState: State<null> = {
   data: null,
 };
 
-export const useAsync = <D>(initialState?: State<D>) => {
+const defaultConfig = {
+  throwOnError: false,
+};
+
+export const useAsync = <D>(
+  initialState?: State<D>,
+  initialConfig?: typeof defaultConfig
+) => {
+  const config = { ...initialConfig };
+
   const [state, setState] = useState<State<D>>({
     ...defaultInitialState,
     ...initialState,
@@ -38,13 +47,16 @@ export const useAsync = <D>(initialState?: State<D>) => {
     }
 
     setState({ ...state, stat: "loading" });
+
     return promise
       .then((data) => {
         setData(data);
         return data;
       })
       .catch((error) => {
+        // promise catch 会内部消化 error ，必须再使用 Promise.reject() 手动抛出 error
         setError(error);
+        if (config.throwOnError) return Promise.reject(error);
         return error;
       });
   };

@@ -6,9 +6,16 @@ import { useAsync } from "../utils/use-async";
 
 export const LoginPage = ({ onError }: { onError: (error: Error) => void }) => {
   const { login } = useAuth();
-  const { run, isLoading } = useAsync();
-  const handleSubmit = (values: { username: string; password: string }) => {
-    run(login(values).catch(onError));
+  const { run, isLoading } = useAsync(undefined, { throwOnError: true });
+  const handleSubmit = async (values: {
+    username: string;
+    password: string;
+  }) => {
+    try {
+      await run(login(values));
+    } catch (e) {
+      onError(e);
+    }
   };
   /*	const handleSubmit = (event: FormEvent<HTMLFormElement>)=>{
 		event.preventDefault();
