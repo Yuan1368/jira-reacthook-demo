@@ -4,13 +4,19 @@ import styled from "@emotion/styled";
 import { Row } from "./components/lib";
 import { ReactComponent as SoftwareLogo } from "assets/software-logo.svg";
 import { Button, Dropdown, Menu } from "antd";
+import { useDocumentTitle } from "./utils";
+// import {Helmet} from "react-helmet";
 
 export const AuthenticatedApp = () => {
   const { logout, user } = useAuth();
+  useDocumentTitle("项目列表", false);
 
   return (
     <>
       <Container>
+        {/*<Helmet>
+          <title>项目列表</title>
+        </Helmet>*/}
         <Header>
           <HeaderLeft gap={true} between={true}>
             <SoftwareLogo width={"18rem"} color={"rgb(38, 132, 255)"} />

@@ -4,7 +4,7 @@ import { User } from "../page/home/SearchPanel";
 import { http } from "../utils/http";
 import { useMount } from "../utils";
 import { useAsync } from "../utils/use-async";
-import { FullPageError, FullPageLoading } from "../components/lib";
+import { FullPageErrorFallback, FullPageLoading } from "../components/lib";
 
 const AuthContext = React.createContext<
   | {
@@ -59,7 +59,7 @@ export const AuthProvide = ({ children }: { children: React.ReactNode }) => {
   }
 
   if (isError) {
-    return <FullPageError error={error} />;
+    return <FullPageErrorFallback error={error} />;
   }
 
   return (
