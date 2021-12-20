@@ -7,6 +7,7 @@ import { useHttp } from "./http";
 export const useList = (param?: Partial<List>) => {
   const { run, ...result } = useAsync<List[]>();
   const client = useHttp();
+
   useEffect(() => {
     run(client(`projects`, { data: cleanObject(param || {}) }));
     // eslint-disable-next-line

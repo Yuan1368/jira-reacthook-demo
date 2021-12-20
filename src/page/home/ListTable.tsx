@@ -20,15 +20,18 @@ const ListTable = ({ users, ...props }: ListTableProp) => {
   return (
     <Table
       pagination={false}
+      rowKey={"id"}
       columns={[
         {
           title: "名称",
           dataIndex: "name",
+          key: "name",
           sorter: (a, b) => a.name.localeCompare(b.name),
         },
         {
           title: "部门名称",
           dataIndex: "organization",
+          key: "organization",
         },
         {
           title: "负责人",
