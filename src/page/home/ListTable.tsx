@@ -2,6 +2,7 @@ import React from "react";
 import { User } from "./SearchPanel";
 import { Table, TableProps } from "antd";
 import dayjs from "dayjs";
+import { Link } from "react-router-dom";
 
 export interface List {
   id: string;
@@ -24,9 +25,11 @@ const ListTable = ({ users, ...props }: ListTableProp) => {
       columns={[
         {
           title: "名称",
-          dataIndex: "name",
           key: "name",
           sorter: (a, b) => a.name.localeCompare(b.name),
+          render(value, project) {
+            return <Link to={String(project.id)}>{project.name}</Link>;
+          },
         },
         {
           title: "部门名称",
