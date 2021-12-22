@@ -8,12 +8,12 @@ export const ListScreen = () => {
   return (
     <>
       <h1>ListScreen</h1>
-      <Link to={"/kanban"}>kanban</Link>
-      <Link to={"/epic"}>epic</Link>
+      <Link to={"kanban"}>kanban</Link>
+      <Link to={"epic"}>epic</Link>
       <Routes>
         <Route path={"kanban"} element={<KanbanScreen />} />
         <Route path={"epic"} element={<EpicScreen />} />
-        <Navigate to={window.location.pathname + "/kanban"} />
+        <Route path={"*"} element={<Navigate to={"kanban"} />} />
       </Routes>
     </>
   );
