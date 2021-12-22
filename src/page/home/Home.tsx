@@ -6,10 +6,10 @@ import styled from "@emotion/styled";
 import { Typography } from "antd";
 import { useList } from "../../utils/project";
 import { useUsers } from "../../utils/user";
+import { useQueryQueryParam } from "../../utils/url";
 
 const Home = () => {
-  const [param, setParam] = useState({ name: "", personId: "" });
-
+  const [param, setParam] = useQueryQueryParam(["name", "personId"]);
   const debouncedParam = useDebounce(param, 1000);
 
   const { isLoading, error, data: list } = useList(debouncedParam);
@@ -30,6 +30,8 @@ const Home = () => {
     </Container>
   );
 };
+
+Home.whyDidYouRender = true;
 
 export default Home;
 
